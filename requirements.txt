@@ -1,0 +1,11 @@
+torch==2.8.0
+transformers==4.57.3
+accelerate==1.10.0
+datasets==4.4.2
+tokenizers==0.22.1
+safetensors==0.7.0
+nltk==3.9.2
+stanza==1.11.0
+numpy==1.26.4
+matplotlib==3.9.4
+# wandb==0.23.1 optional

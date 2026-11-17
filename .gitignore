@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.idea/
+*.py[cod]
+A_PCFG/data/
+B_LLMTraining/runs/
+B_LLMTraining/splits/
+C_Probing_and_Evaluation/results_acceptance_matrix/
+C_Probing_and_Evaluation/results_grammar_comparison/
+perplexity.csv
