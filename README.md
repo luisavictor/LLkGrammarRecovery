@@ -1,24 +1,24 @@
 # Beyond Tree Accuracy: Grammar-Level Evaluation of Syntactic Representations in LLMs
 
-This repository contains the code for **Beyond Tree Accuracy: Grammar-Level Evaluation of Syntactic Representations in LLMs**.
-
+Code and grammar resources for the paper **Beyond Tree Accuracy: Grammar-Level Evaluation of Syntactic Representations in LLMs**, accepted to the Main Conference of EACL 2027.
 ## Overview
 
-The project evaluates whether decoder-only language models trained on controlled grammar-generated languages learn syntactic regularities that can be recovered as grammars, not only as individual decoded parse trees.
+This repository provides the implementation of our framework for evaluating syntactic information in language-model representations at the grammar level.
 
-The pipeline has three stages:
+We train decoder-only Transformers on controlled, grammar-generated languages and use structural probes to decode constituency trees from their hidden representations. By inducing grammars from these trees, we investigate whether the recovered structures capture systematic syntactic regularities beyond individual parse-tree accuracy.
 
-**A: Grammar construction**
 
-**B: Language-model training**
+The experimental pipeline consists of three stages:
 
-**C: Probing and grammar-level evaluation**
+**A. Grammar Construction:** Construct a source PCFG and extract deterministic LL(k) subgrammars.
 
-The small `main_*` files are demonstration entry points showing how to call the code locally. They use small/debug-oriented settings. For full-scale runs, use the paper settings and pass them to the configurable scripts described below. 
-The pipeline should be run in order (first A, then B, then C).
+**B. Language-Model Training:** Train decoder-only Transformers from scratch on grammar-generated sentences.
 
-The `resources/grammars/` directory provides the original LL(k) grammars and the broader source grammar used for the experiments in the paper.
+**C. Probing and Grammar-Level Evaluation:** Decode constituency trees, induce grammars, and evaluate grammar recovery, source-grammar compatibility, and recognition behavior.
 
+The repository includes demonstration entry points (main_*) with reduced settings for local experimentation. These are not intended to reproduce the full-scale experiments directly. To reproduce the paper's experiments, use the configurable scripts with the corresponding hyperparameters and dataset sizes.
+
+The resources/grammars/ directory contains the source grammar and LL(1), LL(2), and LL(3) grammars used in the paper.
 
 ## Repository Structure
 
@@ -32,24 +32,21 @@ The `resources/grammars/` directory provides the original LL(k) grammars and the
 
 ## Installation
 
-Recommended Python version:
+Recommended Python version: **3.10 or 3.11**.
 
-```text
-Python 3.10 or 3.11
-```
-
-Install dependencies with:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-To reconstruct the source grammar from Brown Corpus parses, also download the NLTK Brown corpus:
+To reconstruct the source grammar, download the NLTK Brown corpus:
 
-```python
-import nltk
-nltk.download("brown")
+```bash
+python -c "import nltk; nltk.download('brown')"
 ```
+
+To reconstruct the source grammar from Brown Corpus parses, also download the NLTK Brown corpus:
 
 Stanza English constituency resources are downloaded by the grammar-construction code when the Stanza pipeline is built.
 ## Workflow
@@ -123,3 +120,21 @@ Typical generated outputs are:
 | B | `B_LLMTraining/runs/seed_*/...`, `B_LLMTraining/splits/seed_*/...` |
 | C grammar comparison | `C_Probing_and_Evaluation/results_grammar_comparison/` |
 | C recognition behavior | `C_Probing_and_Evaluation/results_acceptance_matrix/` |
+
+
+
+
+
+## Citation
+
+If you use this code or the released grammar resources in your research, please cite our paper:
+
+```bibtex
+@inproceedings{victor2027beyond,
+  title     = {Beyond Tree Accuracy: Grammar-Level Evaluation of Syntactic Representations in LLMs},
+  author    = {Victor, Luisa and Frey, Markus and Horv{\'a}th, Tam{\'a}s},
+  booktitle = {Proceedings of the 2027 Conference of the European Chapter of the Association for Computational Linguistics},
+  year      = {2027}
+}
+```
+The official ACL Anthology citation will be added once the proceedings are published.
