@@ -3,10 +3,7 @@
 Code and grammar resources for the paper **Beyond Tree Accuracy: Grammar-Level Evaluation of Syntactic Representations in LLMs**, accepted to the Main Conference of EACL 2027.
 ## Overview
 
-This repository provides the implementation of our framework for evaluating syntactic information in language-model representations at the grammar level.
-
-We train decoder-only Transformers on controlled, grammar-generated languages and use structural probes to decode constituency trees from their hidden representations. By inducing grammars from these trees, we investigate whether the recovered structures capture systematic syntactic regularities beyond individual parse-tree accuracy.
-
+This repository provides the code for investigating whether language models learn the latent rules underlying the syntactic regularities of a target language. We study this question in a controlled setting with anonymized, English-inspired context-free languages defined by unambiguous subgrammars of a broader source grammar. We train decoder-only Transformers on these languages and induce grammars from constituency trees decoded from their representations. We evaluate how closely these grammars resemble the gold evaluation grammars, to what extent they recover true production rules, and whether they capture structural regularities beyond the deterministic training grammar.
 
 The experimental pipeline consists of three stages:
 
@@ -45,9 +42,6 @@ To reconstruct the source grammar, download the NLTK Brown corpus:
 ```bash
 python -c "import nltk; nltk.download('brown')"
 ```
-
-To reconstruct the source grammar from Brown Corpus parses, also download the NLTK Brown corpus:
-
 Stanza English constituency resources are downloaded by the grammar-construction code when the Stanza pipeline is built.
 ## Workflow
 
@@ -109,7 +103,7 @@ python -m C_Probing_and_Evaluation.recognition_behavior --help
 python -m C_Probing_and_Evaluation.vilares_constituency_probe --help
 ```
 
-For full-scale runs, set the number of probe training trees to 1K to 50K and test trees to 10K.
+For full-scale runs, set the number of probe training trees from 1K to 50K and set the number of test trees to 10K.
 ## Outputs
 
 Typical generated outputs are:
